@@ -1,20 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useFonts } from '@expo-google-fonts/inter';
+import AppLoading from 'expo-app-loading';
+
+import { Root } from './src/routes/roots';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  let [fontsLoaded] = useFonts({
+    'inter-200': require('./assets/fonts/Inter-Light.ttf'),
+    'inter-400': require('./assets/fonts/Inter-Regular.ttf'),
+    'inter-600': require('./assets/fonts/Inter-Medium.ttf'),
+    'inter-700': require('./assets/fonts/Inter-SemiBold.ttf'),
+    'inter-800': require('./assets/fonts/Inter-Bold.ttf'),
+    'inter-900': require('./assets/fonts/Inter-ExtraBold.ttf'),
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return <Root />;
+  }
+}
